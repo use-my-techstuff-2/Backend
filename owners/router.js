@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const db = require("/backend/database/dbConfig");
+const db = require("../database/dbconfig");
 
 const Owners = require("./owners-model");
 const Gadgets = require("../gadgets/gadgets-model");
