@@ -19,7 +19,7 @@ module.exports = {
       directory: "./database/seeds"
     }
   },
-  
+
   testing: {
     client: "sqlite3",
     connection: {
@@ -37,10 +37,7 @@ module.exports = {
   production: {
     client: "pg",
     connection: process.env.DATABASE_URL,
-    pool: {
-      mis: 2,
-      max:10,
-    },
+    
     migrations: {
       directory: "./database/migrations",
       tableName: "knex_migrations"
