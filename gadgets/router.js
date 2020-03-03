@@ -1,8 +1,42 @@
 const router = require("express").Router();
 const Owners = require("../owners/owners-model");
 const Gadgets = require("./gadgets-model");
-
+const db = require("../database/dbconfig");
 const authentication = require("../auth/auth-middleware");
+
+/** 
+ * @api {get} /api/gadgets GET gadgets
+ * @apiName GET Gadgets 
+ * @apiGroup Gadgets
+ * 
+ *
+ * 
+ * @apiSuccessExample successful response: 
+ * http/1.1 200 OK
+ * 
+ [
+    {
+        "id": 1,
+        "owner_id": 1
+        "name": "Camera",
+        "price": 20,
+        "location": "LA"
+    },
+    {
+        "id": 1,
+        "owner_id": 1,
+        "name": "Laptop",
+        "price": 40,
+        "location": "Atlanta"
+    },
+]
+
+* @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 400 Not Found
+ *     {
+ *       "error": "Could not retrieve the gadgets from the database"
+ *     }
+ **/
 
 router.get("/", (req, res) => {
   Gadgets.find()
@@ -14,30 +48,86 @@ router.get("/", (req, res) => {
     );
 });
 
-router.get("/:ownerId", authentication, (req, res) => {
-  if (req.owner.id.toString() === req.params.ownerId) {
-    Gadgets.findByOwnerrId(req.params.ownerId)
-      .then(gadgets => {
-        if (gadgets.length === 0) {
-          return res.status(400).json({ error: "no gadgets to display" });
-        } else {
-          return res.status(200).json(gadgets);
-        }
-      })
-      .catch(error => {
-        console.log(error);
-        res.status(500).json({ error: "error retrieving gadgets" });
-      });
-  } else {
-    return res
-      .status(400)
-      .json({ message: "Are you logged in to the correct account?" });
-  }
+router.get("/:id/gadgets", (req, res) => {
+  db("gadgets as g")
+    .join("owners as o", "o.id", "g.owner_id")
+    .select(
+      "g.id",
+      "g.name",
+      "g.price",
+      "g.location",
+      "g.owner_Id",
+      "o.username"
+    )
+    .where({ owner_id: req.params.id })
+    .then(gadgets => {
+      if (gadgets.length === 0) {
+        return res.status(400).json({ errror: "No gadgets to display" });
+      } else {
+        res.status(200).json(gadgets);
+      }
+    })
+    .catch(error => {
+      console.log("error", error);
+      res.status(500).json({ message: "Cannot find gadget" });
+    });
 });
 
 /** 
- * @api {get} /api/gadgets/:ownerId GET owners gadgets
- * @apiName GET Gadgets
+ * @api {get} /api/gadgets/:id/gadgets GET owners gadgets
+ * @apiName GET Gadgets by owner
+ * @apiGroup Gadgets
+ * 
+ * @apiParam {String} username username, required.
+ * @apiParam {String} password password, required.
+ * 
+ * @apiSuccessExample successful response: 
+ * http/1.1 200 OK
+ * 
+ [
+    {
+        "id": 1,
+        "name": "Camera",
+        "price": 20,
+        "location": "LA"
+        "owner_id": 1
+        "username": "user1",
+    },
+    {
+        "id": 1,
+        "name": "Laptop",
+        "price": 40,
+        "location": "Atlanta"
+        "owner_id": 1,
+        "username": "user1"
+    },
+]
+
+* @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 400 Not Found
+ *     {
+ *       "error": "No gadgets to display"
+ *     }
+ **/
+
+router.get("/:gadgetId", (req, res) => {
+  Gadgets.findById(req.params.gadgetId)
+    .then(gadget => {
+      if (!gadget) {
+        return res.status(400).json({ error: "no gadget with that ID" });
+      } else {
+        return res.status(200).json(gadget);
+      }
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({ error: "error retrieving gadgets" });
+    });
+});
+
+/** 
+ * @api {get} /api/gadgets/:gadgetsId GET  gadgets by ID
+ * @apiName GET Gadgets by ID
  * @apiGroup Gadgets
  * 
  * @apiParam {String} username username, required.
@@ -50,57 +140,29 @@ router.get("/:ownerId", authentication, (req, res) => {
     {
         "id": 1,
         "owner_id": 1,
-        "renter_id": 1,
         "name": "Camera",
-        "price": 20,
+        "price": 50,
         "location": "LA"
-    },
-    {
-        "id": 2,
-        "owner_id": 1,
-        "renter_id": 2,
-        "name": "Laptop",
-        "price": 75,
-        "location": "Atlanta"
-    },
+    }
+    
 ]
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 400 Not Found
+ *     {
+ *       "error": "No gadget with that ID"
+ *     }
  **/
 
-router.get("/gadget/:gadgetId", (req, res) => {
-  Gadgets.findById(req.params.gadgetId)
-    .then(gadget => {
-      if (!gadget) {
-        return res.status(400).json({ error: "no gadget to display" });
-      } else {
-        return res.status(200).json(gadget);
-      }
-    })
-    .catch(error => {
-      console.log(error);
-      res.status(500).json({ error: "error retrieving gadgets" });
-    });
-});
-
 router.post("/:ownerId", (req, res) => {
-  const gadget = { ...req.body, owner_id: req.params.ownerId };
-  Owners.findById(req.params.ownerrId).then(owner => {
-    if (!owner) {
-      res.status(401).json({ error: "owner doesn't exist" });
-    } else {
-      Workouts.add(gadget)
-        .then(gadget => {
-          if (!gadget) {
-            res.status(400).json({ error: "missing fields" });
-          } else {
-            res.status(201).json(gadget);
-          }
-        })
-        .catch(error => {
-          console.log(error);
-          res.status(500).json({ error: "error posting new gadget" });
-        });
-    }
-  });
+  const gadgetData = req.body;
+
+  Gadgets.add(gadgetData)
+    .then(ids => {
+      res.status(201).json({ created: ids[0], gadgetData });
+    })
+    .catch(err => {
+      res.status(500).json({ error: "Failed to add new gadget" });
+    });
 });
 
 /** 
@@ -108,6 +170,7 @@ router.post("/:ownerId", (req, res) => {
  * @apiName POST Gadget
  * @apiGroup Gadgets
  * 
+ * @apiParam {Integer} owner_id, required
  * @apiParam {String} name name of gadget, required.
  * @apiParam {Integer} price price of gadget.
  * 
@@ -118,14 +181,19 @@ router.post("/:ownerId", (req, res) => {
  * 
  [
     {
-    "id": 10,
+    "gadgetData": {
     "owner_id": 1,
     "name": "Laptop",
     "price": 75,
-    
     "location": "Atlanta"
     }
+    }
 ]
+* @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 500 Not Found
+ *     {
+ *       "error": "Failed to add new gadget"
+ *     }
  **/
 
 router.put("/:ownerId", (req, res) => {
@@ -192,6 +260,12 @@ router.delete("/:gadgetId", (req, res) => {
 {
     "message": "Gadget deleted. Good job."
 }
+
+* @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 500 Not Found
+ *     {
+ *       "error": "Error deleting gadget"
+ *     }
  **/
 
 module.exports = router;

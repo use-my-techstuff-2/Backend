@@ -92,15 +92,52 @@
         }
       ]
     },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 500 Not Found\n{\n  \"error\": \"Error deleting gadget\"\n}",
+          "type": "json"
+        }
+      ]
+    },
     "version": "0.0.0",
     "filename": "./gadgets/router.js",
     "groupTitle": "Gadgets"
   },
   {
     "type": "get",
-    "url": "/api/gadgets/:ownerId",
-    "title": "GET owners gadgets",
+    "url": "/api/gadgets",
+    "title": "GET gadgets",
     "name": "GET_Gadgets",
+    "group": "Gadgets",
+    "success": {
+      "examples": [
+        {
+          "title": "successful response: ",
+          "content": "http/1.1 200 OK\n\n [\n    {\n        \"id\": 1,\n        \"owner_id\": 1\n        \"name\": \"Camera\",\n        \"price\": 20,\n        \"location\": \"LA\"\n    },\n    {\n        \"id\": 1,\n        \"owner_id\": 1,\n        \"name\": \"Laptop\",\n        \"price\": 40,\n        \"location\": \"Atlanta\"\n    },\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Not Found\n{\n  \"error\": \"Could not retrieve the gadgets from the database\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./gadgets/router.js",
+    "groupTitle": "Gadgets"
+  },
+  {
+    "type": "get",
+    "url": "/api/gadgets/:gadgetsId",
+    "title": "GET  gadgets by ID",
+    "name": "GET_Gadgets_by_ID",
     "group": "Gadgets",
     "parameter": {
       "fields": {
@@ -126,7 +163,64 @@
       "examples": [
         {
           "title": "successful response: ",
-          "content": "http/1.1 200 OK\n\n [\n    {\n        \"id\": 1,\n        \"owner_id\": 1,\n        \"renter_id\": 1,\n        \"name\": \"Camera\",\n        \"price\": 20,\n        \"location\": \"LA\"\n    },\n    {\n        \"id\": 2,\n        \"owner_id\": 1,\n        \"renter_id\": 2,\n        \"name\": \"Laptop\",\n        \"price\": 75,\n        \"location\": \"Atlanta\"\n    },\n]",
+          "content": "http/1.1 200 OK\n\n [\n    {\n        \"id\": 1,\n        \"owner_id\": 1,\n        \"name\": \"Camera\",\n        \"price\": 50,\n        \"location\": \"LA\"\n    }\n    \n]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Not Found\n{\n  \"error\": \"No gadget with that ID\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./gadgets/router.js",
+    "groupTitle": "Gadgets"
+  },
+  {
+    "type": "get",
+    "url": "/api/gadgets/:id/gadgets",
+    "title": "GET owners gadgets",
+    "name": "GET_Gadgets_by_owner",
+    "group": "Gadgets",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": "<p>username, required.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p>password, required.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "successful response: ",
+          "content": "http/1.1 200 OK\n\n [\n    {\n        \"id\": 1,\n        \"name\": \"Camera\",\n        \"price\": 20,\n        \"location\": \"LA\"\n        \"owner_id\": 1\n        \"username\": \"user1\",\n    },\n    {\n        \"id\": 1,\n        \"name\": \"Laptop\",\n        \"price\": 40,\n        \"location\": \"Atlanta\"\n        \"owner_id\": 1,\n        \"username\": \"user1\"\n    },\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Not Found\n{\n  \"error\": \"No gadgets to display\"\n}",
           "type": "json"
         }
       ]
@@ -144,6 +238,13 @@
     "parameter": {
       "fields": {
         "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "owner_id",
+            "description": "<p>, required</p>"
+          },
           {
             "group": "Parameter",
             "type": "String",
@@ -172,7 +273,16 @@
       "examples": [
         {
           "title": "successful response: ",
-          "content": "http/1.1 201 Created\n\n [\n    {\n    \"id\": 10,\n    \"owner_id\": 1,\n    \"name\": \"Laptop\",\n    \"price\": 75,\n    \n    \"location\": \"Atlanta\"\n    }\n]",
+          "content": "http/1.1 201 Created\n\n [\n    {\n    \"gadgetData\": {\n    \"owner_id\": 1,\n    \"name\": \"Laptop\",\n    \"price\": 75,\n    \"location\": \"Atlanta\"\n    }\n    }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 500 Not Found\n{\n  \"error\": \"Failed to add new gadget\"\n}",
           "type": "json"
         }
       ]
@@ -226,5 +336,33 @@
     "version": "0.0.0",
     "filename": "./gadgets/router.js",
     "groupTitle": "Gadgets"
+  },
+  {
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "varname1",
+            "description": "<p>No type.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "varname2",
+            "description": "<p>With type.</p>"
+          }
+        ]
+      }
+    },
+    "type": "",
+    "url": "",
+    "version": "0.0.0",
+    "filename": "./docs/main.js",
+    "group": "e:\\Users\\Robert\\Desktop\\React Projects\\Backend\\Backend\\docs\\main.js",
+    "groupTitle": "e:\\Users\\Robert\\Desktop\\React Projects\\Backend\\Backend\\docs\\main.js",
+    "name": ""
   }
 ]

@@ -18,7 +18,7 @@ server.use(express.json());
 server.use("/api/auth", authRouter);
 server.use("/owners", ownersRouter);
 // server.use("/renters", rentersRouter);
-server.use("/gadgets", gadgetsRouter);
+server.use("/api/gadgets", gadgetsRouter);
 server.use("/docs", express.static("./docs"));
 
 server.get("/", (req, res) => {
