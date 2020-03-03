@@ -28,8 +28,17 @@
     "success": {
       "examples": [
         {
-          "title": "successful response: ",
+          "title": "successful response:",
           "content": "http/1.1 201 Created\n{\n  \"message\": \"Welcome test\",\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTgwNTk2NTgxLCJleHAiOjE1ODEyMDEzODF9.dCjB70A25ZCa7wmXhUAtoGKCtFESP8g-BRgdhw6jgG4\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": " HTTP/1.1 401 Unauthorized\n {\n   \"error\": \"Owner does not exist.\"\n }\nHTTP/1.1 500 Internal Server Error\n {\n    \"error\": \"Error logging in\"\n}",
           "type": "json"
         }
       ]
@@ -67,8 +76,17 @@
     "success": {
       "examples": [
         {
-          "title": "successful response: ",
+          "title": "successful response:",
           "content": "http/1.1 201 Created\n{\n  \"id\": 4,\n  \"username\": \"test\",\n  \"password\": \"$2a$08$6fu3MlbA4mXGegw3h.m5eegLbRmG7KxkuplTA5lMLWa7shdXZMKYu\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"Owner already exists, pick another name.\"\n}",
           "type": "json"
         }
       ]
