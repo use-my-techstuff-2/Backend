@@ -110,15 +110,6 @@
         }
       ]
     },
-    "error": {
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 500 Not Found\n{\n  \"error\": \"Error deleting gadget\"\n}",
-          "type": "json"
-        }
-      ]
-    },
     "version": "0.0.0",
     "filename": "./gadgets/router.js",
     "groupTitle": "Gadgets"
@@ -346,7 +337,16 @@
       "examples": [
         {
           "title": "successful response: ",
-          "content": "http/1.1 200 Created\n\n [\n    {\n    \"id\": 10,\n    \"owner_id\": 1,\n    \"name\": \"Camera\",\n    \"price\": 10,\n   \n    \"location\": \"Austin\",\n    \n}\n]",
+          "content": "http/1.1 200 Created\n\n [\n    {\n    \"id\": 10,\n    \"owner_id\": 1,\n    \"name\": \"Camera\",\n    \"price\": 10,\n    \"location\": \"Austin\",\n    \n}\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "   HTTP/1.1 400 Bad Request\n   {\n     \"error\": \"Missing field\"\n   }\n\nHTTP/1.1 500 Internal Server Error\n   {\n     \"error\": \"Error updating gadget\"\n   }",
           "type": "json"
         }
       ]
