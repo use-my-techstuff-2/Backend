@@ -231,11 +231,20 @@ router.put("/:ownerId", (req, res) => {
     "owner_id": 1,
     "name": "Camera",
     "price": 10,
-   
     "location": "Austin",
     
 }
 ]
+* @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 400 Bad Request
+ *     {
+ *       "error": "Missing field"
+ *     }
+ * 
+ *  HTTP/1.1 500 Internal Server Error
+ *     {
+ *       "error": "Error updating gadget"
+ *     }
  **/
 
 router.delete("/:gadgetId", (req, res) => {
@@ -261,11 +270,7 @@ router.delete("/:gadgetId", (req, res) => {
     "message": "Gadget deleted. Good job."
 }
 
-* @apiErrorExample {json} Error-Response:
- *     HTTP/1.1 500 Not Found
- *     {
- *       "error": "Error deleting gadget"
- *     }
+
  **/
 
 module.exports = router;
