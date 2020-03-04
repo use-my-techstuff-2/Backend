@@ -124,7 +124,7 @@
       "examples": [
         {
           "title": "successful response: ",
-          "content": "http/1.1 200 OK\n\n [\n    {\n        \"id\": 1,\n        \"owner_id\": 1\n        \"name\": \"Camera\",\n        \"price\": 20,\n        \"location\": \"LA\"\n    },\n    {\n        \"id\": 1,\n        \"owner_id\": 1,\n        \"name\": \"Laptop\",\n        \"price\": 40,\n        \"location\": \"Atlanta\"\n    },\n]",
+          "content": "http/1.1 200 OK\n\n [\n    {\n        \"id\": 1,\n        \"owner_id\": 1\n        \"name\": \"Camera\",\n        \"price\": 20,\n        \"location\": \"LA\",\n        \"offers\": 0\n    },\n    {\n        \"id\": 1,\n        \"owner_id\": 1,\n        \"name\": \"Laptop\",\n        \"price\": 40,\n        \"location\": \"Atlanta\",\n        \"offers\": 0\n    },\n]",
           "type": "json"
         }
       ]
@@ -172,7 +172,7 @@
       "examples": [
         {
           "title": "successful response: ",
-          "content": "http/1.1 200 OK\n\n [\n    {\n        \"id\": 1,\n        \"owner_id\": 1,\n        \"name\": \"Camera\",\n        \"price\": 50,\n        \"location\": \"LA\"\n    }\n    \n]",
+          "content": "http/1.1 200 OK\n\n [\n    {\n        \"id\": 1,\n        \"owner_id\": 1,\n        \"name\": \"Camera\",\n        \"price\": 50,\n        \"location\": \"LA\",\n        \"offers\": 0\n    }\n    \n]",
           "type": "json"
         }
       ]
@@ -229,7 +229,7 @@
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 400 Not Found\n{\n  \"error\": \"No gadgets to display\"\n}",
+          "content": "HTTP/1.1 400 Not Found\n{ \n  \"error\": \"No gadgets to display\"\n}",
           "type": "json"
         }
       ]
@@ -282,7 +282,7 @@
       "examples": [
         {
           "title": "successful response: ",
-          "content": "http/1.1 201 Created\n\n [\n    {\n    \"gadgetData\": {\n    \"owner_id\": 1,\n    \"name\": \"Laptop\",\n    \"price\": 75,\n    \"location\": \"Atlanta\"\n    }\n    }\n]",
+          "content": "http/1.1 201 Created\n\n [\n    {\n    \"gadgetData\": {\n    \"owner_id\": 1,\n    \"name\": \"Laptop\",\n    \"price\": 75,\n    \"location\": \"Atlanta\",\n    \"offers\": 0\n    }\n    }\n]",
           "type": "json"
         }
       ]
@@ -337,7 +337,7 @@
       "examples": [
         {
           "title": "successful response: ",
-          "content": "http/1.1 200 Created\n\n [\n    {\n    \"id\": 10,\n    \"owner_id\": 1,\n    \"name\": \"Camera\",\n    \"price\": 10,\n    \"location\": \"Austin\",\n    \n}\n]",
+          "content": "http/1.1 200 Created\n\n [\n    {\n    \"id\": 10,\n    \"owner_id\": 1,\n    \"name\": \"Camera\",\n    \"price\": 10,\n    \"location\": \"Austin\",\n    \"offers\": 0\n}\n]",
           "type": "json"
         }
       ]

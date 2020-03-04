@@ -20,14 +20,16 @@ const authentication = require("../auth/auth-middleware");
         "owner_id": 1
         "name": "Camera",
         "price": 20,
-        "location": "LA"
+        "location": "LA",
+        "offers": 0
     },
     {
         "id": 1,
         "owner_id": 1,
         "name": "Laptop",
         "price": 40,
-        "location": "Atlanta"
+        "location": "Atlanta",
+        "offers": 0
     },
 ]
 
@@ -145,7 +147,8 @@ router.get("/:gadgetId", (req, res) => {
         "owner_id": 1,
         "name": "Camera",
         "price": 50,
-        "location": "LA"
+        "location": "LA",
+        "offers": 0
     }
     
 ]
@@ -188,7 +191,8 @@ router.post("/:ownerId", (req, res) => {
     "owner_id": 1,
     "name": "Laptop",
     "price": 75,
-    "location": "Atlanta"
+    "location": "Atlanta",
+    "offers": 0
     }
     }
 ]
@@ -235,7 +239,7 @@ router.put("/:ownerId", (req, res) => {
     "name": "Camera",
     "price": 10,
     "location": "Austin",
-    
+    "offers": 0
 }
 ]
 * @apiErrorExample {json} Error-Response:
