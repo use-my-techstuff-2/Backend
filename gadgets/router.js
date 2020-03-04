@@ -57,7 +57,8 @@ router.get("/:id/gadgets", (req, res) => {
       "g.price",
       "g.location",
       "g.owner_Id",
-      "o.username"
+      "o.username",
+      "g.offers"
     )
     .where({ owner_id: req.params.id })
     .then(gadgets => {
@@ -89,23 +90,25 @@ router.get("/:id/gadgets", (req, res) => {
         "id": 1,
         "name": "Camera",
         "price": 20,
-        "location": "LA"
-        "owner_id": 1
+        "location": "LA",
+        "owner_id": 1,
         "username": "user1",
+        "offers": 0
     },
     {
         "id": 1,
         "name": "Laptop",
         "price": 40,
-        "location": "Atlanta"
+        "location": "Atlanta",
         "owner_id": 1,
-        "username": "user1"
+        "username": "user1",
+        "offers": 0
     },
 ]
 
 * @apiErrorExample {json} Error-Response:
  *     HTTP/1.1 400 Not Found
- *     {
+ *     { 
  *       "error": "No gadgets to display"
  *     }
  **/

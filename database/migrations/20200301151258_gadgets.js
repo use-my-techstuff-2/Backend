@@ -13,6 +13,7 @@ exports.up = function(knex) {
     table.string("name", 128).notNullable();
     table.integer("price");
     table.string("location");
+    table.integer('offers')
   });
 };
 

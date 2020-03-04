@@ -220,7 +220,7 @@ define({ "api": [
       "examples": [
         {
           "title": "successful response: ",
-          "content": "http/1.1 200 OK\n\n [\n    {\n        \"id\": 1,\n        \"name\": \"Camera\",\n        \"price\": 20,\n        \"location\": \"LA\"\n        \"owner_id\": 1\n        \"username\": \"user1\",\n    },\n    {\n        \"id\": 1,\n        \"name\": \"Laptop\",\n        \"price\": 40,\n        \"location\": \"Atlanta\"\n        \"owner_id\": 1,\n        \"username\": \"user1\"\n    },\n]",
+          "content": "http/1.1 200 OK\n\n [\n    {\n        \"id\": 1,\n        \"name\": \"Camera\",\n        \"price\": 20,\n        \"location\": \"LA\",\n        \"owner_id\": 1,\n        \"username\": \"user1\",\n        \"offers\": 0\n    },\n    {\n        \"id\": 1,\n        \"name\": \"Laptop\",\n        \"price\": 40,\n        \"location\": \"Atlanta\",\n        \"owner_id\": 1,\n        \"username\": \"user1\",\n        \"offers\": 0\n    },\n]",
           "type": "json"
         }
       ]
