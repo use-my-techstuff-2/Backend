@@ -20,18 +20,18 @@ function findById(id) {
 }
 
 function findByOwnerId(owner_id) {
-  return db("gadgets as g")
-    .join("owners as o", "o.id", "gadgets.owner_id")
+  return db("gadgets")
+    .join("owners", "owners.id", "gadgets.owner_id")
     .select(
-      "g.id",
-      "g.name",
-      "g.price",
-      "g.location",
-      "g.owner_id",
-      "g.offers",
-      "o.username as saidBy"
+      "gadgets.id",
+      "gadgets.name",
+      "gadgets.price",
+      "gadgets.location",
+      "gadgets.owner_id",
+      "gadgets.offers",
+      "owners.username as saidBy"
     )
-    .where("g.owner_id", owner_id);
+    .where("gadgets.owner_id", owner_id);
 }
 
 function add(gadget) {
