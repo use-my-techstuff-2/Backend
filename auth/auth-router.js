@@ -21,9 +21,9 @@ router.post('/register', (req, res) => {
       owner.password = hash;
       db('owners').insert(owner)
       .then(owner => {
-         return res.status(201).json(owner)
+         res.status(201).json(owner)
       })
-      .catch(err => res.status(500).json({ error: "Could not register the user to the DB" }))
+      .catch(err => res.status(404).json({ error: "Owner already exists, pick another name" }))
   }
 })
 
