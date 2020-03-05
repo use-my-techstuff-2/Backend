@@ -50,7 +50,7 @@ router.get("/", (req, res) => {
     );
 });
 
-router.get("/:id/gadgets", (req, res) => {
+router.get("/:id/gadgets", authentication, (req, res) => {
   Gadgets.findByOwnerId(req.params.id)
   // db("gadgets as g")
   //   .join("owners as o", "o.id", "g.owner_id")
