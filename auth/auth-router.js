@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const Owners = require("../owners/owners-model");
 
 // added
-// const db = require('../database/dbconfig');
+const db = require('../database/dbconfig');
 
 const { jwtSecret } = require("../config/secrets");
 
@@ -19,7 +19,7 @@ router.post('/register', (req, res) => {
   } else {
       const hash = bcrypt.hashSync(owner.password, 10);
       owner.password = hash;
-      Owners.add(owner)
+      db('owners').insert(owner)
       .then(owner => {
           res.status(201).json(owner)
       })
