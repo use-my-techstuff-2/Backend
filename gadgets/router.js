@@ -51,18 +51,19 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id/gadgets", (req, res) => {
-  db("gadgets as g")
-    .join("owners as o", "o.id", "g.owner_id")
-    .select(
-      "g.id",
-      "g.name",
-      "g.price",
-      "g.location",
-      "g.owner_Id",
-      "o.username",
-      "g.offers"
-    )
-    .where({ owner_id: req.params.id })
+  Gadgets.findByOwnerId(req.params.id)
+  // db("gadgets as g")
+  //   .join("owners as o", "o.id", "g.owner_id")
+  //   .select(
+  //     "g.id",
+  //     "g.name",
+  //     "g.price",
+  //     "g.location",
+  //     "g.owner_Id",
+  //     "o.username",
+  //     "g.offers"
+  //   )
+    // .where({ owner_id: req.params.id })
     .then(gadgets => {
       if (gadgets.length === 0) {
         return res.status(400).json({ errror: "No gadgets to display" });
