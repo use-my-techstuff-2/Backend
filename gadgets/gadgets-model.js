@@ -58,5 +58,6 @@ function update(id, changes) {
 function remove(id) {
   return db("gadgets")
     .where({ id })
-    .del();
+    .del()
+    
 }
