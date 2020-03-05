@@ -10,22 +10,19 @@ const db = require('../database/dbconfig');
 const { jwtSecret } = require("../config/secrets");
 
 router.post('/register', (req, res) => {
-  let owner = req.body;
+  // implement registration
+  let {username, password} = req.body;
+  const hash = bcrypt.hashSync(password, 8)
 
-  if(!owner.username) {
-      res.status(400).json({ error: "Please provide a username" })
-  } else if (!owner.password) {
-      res.status(400).json({ error: "Please provide a password" })
-  } else {
-      const hash = bcrypt.hashSync(owner.password, 10);
-      owner.password = hash;
-      db('owners').insert(owner)
-      .then(owner => {
-          res.status(201).json(owner)
-      })
-      .catch(err => res.status(500).json({ error: "Could not register the user to the DB" }))
-  }
-})
+  Owners.add({username, password: hash})
+    .then(saved => {
+      res.status(201).json(saved);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    })
+});
 
 // router.post("/register", (req, res) => {
 //   const owner = req.body;
