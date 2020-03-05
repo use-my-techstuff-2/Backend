@@ -21,7 +21,7 @@ function findById(id) {
 
 function findByOwnerId(owner_id) {
   return db("gadgets")
-    .outerjoin("owners", "owners.id", "gadgets.owner_id")
+    .join("owners", "owners.id", "gadgets.owner_id")
     .select(
       "gadgets.id",
       "gadgets.name",
