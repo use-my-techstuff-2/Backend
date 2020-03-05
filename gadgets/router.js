@@ -50,19 +50,19 @@ router.get("/", (req, res) => {
     );
 });
 
-router.get("/:id/gadgets", authentication, (req, res) => {
+router.get("/:id/gadgets", (req, res) => {
   Gadgets.findByOwnerId(req.params.id)
-  // db("gadgets as g")
-  //   .join("owners as o", "o.id", "g.owner_id")
-  //   .select(
-  //     "g.id",
-  //     "g.name",
-  //     "g.price",
-  //     "g.location",
-  //     "g.owner_Id",
-  //     "o.username",
-  //     "g.offers"
-  //   )
+    // db("gadgets as g")
+    //   .join("owners as o", "o.id", "g.owner_id")
+    //   .select(
+    //     "g.id",
+    //     "g.name",
+    //     "g.price",
+    //     "g.location",
+    //     "g.owner_Id",
+    //     "o.username",
+    //     "g.offers"
+    //   )
     // .where({ owner_id: req.params.id })
     .then(gadgets => {
       if (gadgets.length === 0) {
