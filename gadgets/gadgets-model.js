@@ -20,18 +20,21 @@ function findById(id) {
 }
 
 function findByOwnerId(owner_id) {
-  return db("gadgets")
-    .join("owners", "owners.id", "gadgets.owner_id")
-    .select(
-      "gadgets.id",
-      "gadgets.name",
-      "gadgets.price",
-      "gadgets.location",
-      "gadgets.owner_id",
-      "gadgets.offers",
-      "owners.username as saidBy"
-    )
+
+    return db("gadgets")
     .where("gadgets.owner_id", owner_id);
+//   return db("gadgets")
+//     .join("owners", "owners.id", "gadgets.owner_id")
+//     .select(
+//       "gadgets.id",
+//       "gadgets.name",
+//       "gadgets.price",
+//       "gadgets.location",
+//       "gadgets.owner_id",
+//       "gadgets.offers",
+//       "owners.username as saidBy"
+//     )
+//     .where("gadgets.owner_id", owner_id);
 }
 
 function add(gadget) {
