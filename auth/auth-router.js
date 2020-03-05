@@ -9,45 +9,45 @@ const db = require('../database/dbconfig');
 
 const { jwtSecret } = require("../config/secrets");
 
-router.post('/register', (req, res) => {
-  // implement registration
-  let {username, password} = req.body;
-  const hash = bcrypt.hashSync(password, 8)
+// router.post('/register', (req, res) => {
+ 
+//   let {username, password} = req.body;
+//   const hash = bcrypt.hashSync(password, 8)
 
-  Owners.add({username, password: hash})
-    .then(saved => {
-      res.status(201).json(saved);
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    })
-});
-
-// router.post("/register", (req, res) => {
-//   const owner = req.body;
-//   const hash = bcrypt.hashSync(owner.password, 8);
-//   owner.password = hash;
-
-//   const { username } = req.body;
-
-//   Owners.findBy({ username })
-//     .then(username => {
-//       if (!username) {
-//         Owners.add(owner).then(saved => {
-//           return res.status(201).json(saved);
-//         });
-//       } else {
-//         return res
-//           .status(400)
-//           .json({ message: "Owner already exists, pick another name." });
-//       }
+//   Owners.add({username, password: hash})
+//     .then(saved => {
+//       res.status(201).json(saved);
 //     })
-//     .catch(error => {
-//       console.log(error);
-//       return res.status(500).json({ error: "error registering owner" });
-//     });
+//     .catch(err => {
+//         console.log(err);
+//         res.status(500).json(err);
+//     })
 // });
+
+router.post("/register", (req, res) => {
+  const owner = req.body;
+  const hash = bcrypt.hashSync(owner.password, 8);
+  owner.password = hash;
+
+  const { username } = req.body;
+
+  Owners.findBy({ username })
+    .then(username => {
+      if (!username) {
+        Owners.add(owner).then(saved => {
+          return res.status(201).json(saved);
+        });
+      } else {
+        return res
+          .status(400)
+          .json({ message: "Owner already exists, pick another name." });
+      }
+    })
+    .catch(error => {
+      console.log(error);
+      return res.status(500).json({ error: "error registering owner" });
+    });
+});
 
 /**
  * @api {post} /api/auth/register Register Owner
